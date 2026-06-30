@@ -22,12 +22,17 @@ events = [
 @app.route("/events", methods=["POST"])
 def create_event():
     data = request.get_json()
-    events = next
     # TODO: Task 2 - Design and Develop the Code
+    if not data or "title" not in data:
+        return jsonify({"error": "Invalid input"}), 400
 
     # TODO: Task 3 - Implement the Loop and Process Each Element
+    new_id =max((event.id for event in events), default=0) + 1
+    new_event =Event(new_id, data["title"])
+    events.append(new_event)
 
     # TODO: Task 4 - Return and Handle Results
+    return jsonify(new_event.to_dict()), 201
     pass
 
 # TODO: Task 1 - Define the Problem
